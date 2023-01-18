@@ -45,11 +45,16 @@ def run(context):
         pinSketches = rootComp.sketches
         features = rootComp.features
 
+        ################### PARAMETERS ######################
         r = 10.2/10    # TacTip radius (in cm)
         t = 1/10    # Skin thickness (in cm)
         n = 8  # Number of pin layers
-        h= 0.5/10 # Pin height (cm)
-        x1 = 1.5/10    # Initial x-distance (in cm)
+        h= 0.5/10 # Pin height (in cm)
+        p_r = 0.3/10 # Pin radius (in cm)
+        x1 = 1.5/10    #x-distance of initial pin layer points from centre (in cm)
+        #####################################################
+
+        # Calculate points:
         pointList = pointsCalculator(n, x1, r-t)
 
         # Create profile for hemispherical revolve:
@@ -119,7 +124,7 @@ def run(context):
             for plane in planes:
                 sketch = pinSketches.add(plane)
                 circles = sketch.sketchCurves.sketchCircles
-                circle = circles.addByCenterRadius(adsk.core.Point3D.create(0, 0, 0), 0.3/10)
+                circle = circles.addByCenterRadius(adsk.core.Point3D.create(0, 0, 0), p_r)
                 prof = sketch.profiles.item(0)
                 distance = adsk.core.ValueInput.createByReal(h)
                 extrudes.addSimple(prof, distance, adsk.fusion.FeatureOperations.NewBodyFeatureOperation)

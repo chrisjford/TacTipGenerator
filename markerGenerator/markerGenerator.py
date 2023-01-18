@@ -45,12 +45,17 @@ def run(context):
         features = rootComp.features
         removeFeatures = features.removeFeatures
 
+        ################### PARAMETERS ######################
         r = 10.2/10    # TacTip radius (in cm)
-        h= 0.5/10 # Pin height (cm)
-        h_m = 0.25/10 # Marker height (cm)
+        h= 0.5/10 # Pin height (in cm)
+        h_m = 0.25/10 # Marker height (in cm)
+        p_r = 0.3/10 # Pin radius (in cm)
         t = 1/10     # Skin thickness (in cm)
         n = 8  # Number of pin layers
         x1 = 1.5/10    # Initial x-distance (in cm)
+        #####################################################
+
+        # Calculate points
         pointList = pointsCalculator(n, x1, r, t, h)
 
 
@@ -121,7 +126,7 @@ def run(context):
             for plane in planes:
                 sketch = pinSketches.add(plane)
                 circles = sketch.sketchCurves.sketchCircles
-                circle = circles.addByCenterRadius(adsk.core.Point3D.create(0, 0, 0), 0.3/10)
+                circle = circles.addByCenterRadius(adsk.core.Point3D.create(0, 0, 0), p_r)
                 # Comment/uncomment for hollow pin feature:
                 #circle2 = circles.addByCenterRadius(adsk.core.Point3D.create(0, 0, 0), 0.1/10)
 
